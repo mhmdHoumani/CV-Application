@@ -1,0 +1,165 @@
+﻿@page
+@model CreateModel
+@{
+    ViewData["Title"] = "Create Page";
+}
+<br />
+<h1 class="text-info font-weight-light">Create New CV</h1>
+<br />
+<div class="border container bg-light" style="padding:30px;">
+    <form method="post" enctype="multipart/form-data">
+        <div class="text-danger" asp-validation-summary="ModelOnly"></div>
+        <div class="form-group row">
+            <div class="col-3">
+                <label asp-for="Model.FirstName"></label>
+            </div>
+            <div class="col-6">
+                <input asp-for="Model.FirstName" class="form-control text-info" placeholder="First Name" />
+            </div>
+        </div>
+        <span asp-validation-for="Model.FirstName" class="text-danger font-weight-bolder"></span>
+        <hr />
+        <div class="form-group row">
+            <div class="col-3">
+                <label asp-for="Model.LastName"></label>
+            </div>
+            <div class="col-6">
+                <input asp-for="Model.LastName" class="form-control text-info" placeholder="Last Name" />
+            </div>
+        </div>
+        <span asp-validation-for="Model.LastName" class="text-danger font-weight-bolder"></span>
+        <hr />
+        <div class="form-group row">
+            <div class="col-3">
+                <label asp-for="Model.BirthDate"></label>
+            </div>
+            <div class="col-6">
+                <input type="date" asp-for="Model.BirthDate" class="form-control text-info" />
+            </div>
+        </div>
+        <span asp-validation-for="Model.BirthDate" class="text-danger font-weight-bolder"></span>
+        <hr />
+        <div class="form-group row">
+            <div class="col-3">
+                <label asp-for="Model.Nationality"></label>
+            </div>
+            <div class="col-6">
+                <select asp-for="Model.Nationality" multiple class="col-12 border-info bg-white text-info p-1">
+                    @foreach (var item in Model.Model.NationalityList)
+                    {
+                        <option value="@item">@item</option>
+                    }
+
+                </select>
+            </div>
+        </div>
+        <span asp-validation-for="Model.Nationality" class="text-danger font-weight-bolder"></span>
+        <hr />
+        <div class="form-group row">
+            <div class="col-3">
+                <label asp-for="Model.Gender"></label>
+            </div>
+            <div class="col-6 text-info">
+                @foreach (var item in Model.Model.GenderList)
+                {
+                    <label class="offset-2">@item</label>
+                    <input type="radio" asp-for="Model.Gender" value="@item" />
+                }
+            </div>
+        </div>
+        <span asp-validation-for="Model.Gender" class="text-danger font-weight-bolder"></span>
+        <hr />
+        <div class="form-group row">
+            <div class="col-3">
+                <label asp-for="Model.Email"></label>
+            </div>
+            <div class="col-6">
+                <input type="email" asp-for="Model.Email" class="form-control text-info" placeholder="Email" />
+            </div>
+        </div>
+        <span asp-validation-for="Model.Email" class="text-danger font-weight-bolder"></span>
+        <hr />
+        <div class="form-group row">
+            <div class="col-3">
+                <label asp-for="Model.ConfirmEmail"></label>
+            </div>
+            <div class="col-6">
+                <input type="email" asp-for="Model.ConfirmEmail" class="form-control text-info" placeholder="Confirm Email" />
+            </div>
+        </div>
+        <span asp-validation-for="Model.ConfirmEmail" class="text-danger font-weight-bolder"></span>
+        <hr />
+        <div class="form-group row">
+            <div class="col-3">
+                <label asp-for="Model.Skills"></label>
+            </div>
+            <div class="col-6 text-info">
+                @foreach (var item in Model.Model.SkillList)
+                {
+                    <label class="offset-2">@item</label>
+                    <input type="checkbox" name="Model.Skills" value="@item" />
+                }
+            </div>
+        </div>
+        <span asp-validation-for="Model.Skills" class="text-danger font-weight-bolder"></span>
+        <hr />
+        <div class="form-group row">
+            <div class="col-3">
+                <label asp-for="Model.Password"></label>
+            </div>
+            <div class="col-6">
+                <input type="password" class="form-control text-info" asp-for="Model.Password" placeholder="Password" />
+            </div>
+        </div>
+        <span asp-validation-for="Model.Password" class="text-danger font-weight-bolder"></span>
+        <hr />
+        <div class="form-group row">
+            <div class="col-3">
+                <label asp-for="Model.VerificationResult"></label>
+            </div>
+            <div class="text-info col-6 justify-content-center" style="display:flex;">
+                <input type="text" asp-for="Model.Num1" class="col-3 form-control" placeholder="Number 1" />
+                <h1 class="ml-3 mr-3">+</h1>
+                <input type="number" asp-for="Model.Num2" class="col-3 form-control" placeholder="Number 2" />
+                <h1 class="ml-3 mr-3">=</h1>
+                <input type="number" asp-for="Model.VerificationResult" class="col-3 form-control" placeholder="Result" />
+            </div>
+        </div>
+        <span asp-validation-for="Model.VerificationResult" class="text-danger font-weight-bolder"></span>
+        <hr />
+        <div class="form-group row">
+            <div class="col-3">
+                <label asp-for="Model.Image"></label>
+            </div>
+            <div class="col-6">
+                <div class="custom-file">
+                    <input asp-for="Model.Image" class="custom-file-input form-control" />
+                    <label class="custom-file-label text-info">Click here to import an image</label>
+                </div>
+            </div>
+        </div>
+        <hr />
+        <div class="form-group row">
+            <div class="col-3 offset-3">
+                <input type="submit" value="Create" class="btn btn-primary form-control" />
+            </div>
+            <div class="col-3">
+                <a asp-page="../Index" class="btn btn-danger form-control">Cancel</a>
+            </div>
+        </div>
+        <div asp-validation-summary="All" class="text-danger font-weight-bolder offset-3"></div>
+    </form>
+</div>
+
+
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        $(document).ready(function () {
+            $('.custom-file-input').on("change", function () {
+                var filename = $(this).val().split("\\").pop();
+                $(this).next('.custom-file-label').html(filename);
+            });
+        });
+    </script>
+}

@@ -1,0 +1,117 @@
+﻿@page
+
+@model DetailsModel
+@{
+    ViewData["Title"] = Model.Model.PageTitle;
+    var photoPath = "~/Images/" + (Model.Model.Person.PhotoPath ?? "noimage.png");
+}
+
+<br />
+<h1 class="text-info font-weight-light">Your CV Information</h1>
+<br />
+<div class="border container bg-light" style="padding:30px;">
+    <div class="text-center">
+        <img src="@photoPath" asp-append-version="true"
+             class="img-thumbnail mb-5"
+             style="width:30%;height:auto;" />
+    </div>
+    <hr />
+    <div class="form-group row">
+        <div class="col-3"><label class="mt-2" asp-for="Model.Person.FirstName"></label></div>
+        <div class="col-6 text-info"><h3 class="font-weight-lighter">@Model.Model.Person.FirstName</h3></div>
+    </div>
+    <hr />
+    <div class="form-group row">
+        <div class="col-3"><label class="mt-2" asp-for="Model.Person.LastName"></label></div>
+        <div class="col-6 text-info"><h3 class="font-weight-lighter">@Model.Model.Person.LastName</h3></div>
+    </div>
+    <hr />
+    <div class="form-group row">
+        <div class="col-3"><label class="mt-2" asp-for="Model.Person.Email"></label></div>
+        <div class="col-6 text-info"><h3 class="font-weight-lighter">@Model.Model.Person.Email</h3></div>
+    </div>
+    <hr />
+    <div class="form-group row">
+        <div class="col-3"><label class="mt-2" asp-for="Model.Person.BirthDate"></label></div>
+        <div class="col-6 text-info"><h3 class="font-weight-lighter">@Model.Model.Person.BirthDate.ToLongDateString()</h3></div>
+    </div>
+    <hr />
+    <div class="form-group row">
+        <div class="col-3"><label class="mt-2" asp-for="Model.Person.Gender"></label></div>
+        <div class="col-6 text-info"><h3 class="font-weight-lighter">@Model.Model.Person.Gender</h3></div>
+    </div>
+    <hr />
+    <div class="form-group row">
+        <div class="col-3"><label class="mt-2" asp-for="Model.Person.Nationality"></label></div>
+        @{
+            var items = Model.Model.Person.Nationality.Split("@#$");
+            if (items.Length > 1)
+            {
+                foreach (var item in items)
+                {
+                    if (item.Equals(items[0]))
+                    {
+                        <div class="col-6 text-info">
+                            <h3 class="font-weight-lighter">
+                                <span class="font-weight-bolder" style="font-size:xx-large;">.</span>@item
+                            </h3>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="offset-3 col-6 text-info">
+                            <h3 class="font-weight-lighter">
+                                <span class="font-weight-bolder" style="font-size:xx-large;">.</span>@item
+                            </h3>
+                        </div>
+                    }
+                }
+            }
+            else
+            {
+                <div class="col-6 text-info">
+                    <h3 class="font-weight-lighter">@items[0]</h3>
+                </div>
+            }
+        }
+    </div>
+    <hr />
+    <div class="form-group row">
+        <div class="col-3"><label class="mt-2" asp-for="Model.Person.Skills"></label></div>
+        @{
+            var skills = Model.Model.Person.Skills.Split("@#$");
+            if (skills.Length > 1)
+            {
+                foreach (var item in skills)
+                {
+                    if (item.Equals(skills[0]))
+                    {
+                        <div class="col-6 text-info">
+                            <h3 class="font-weight-lighter">
+                                <span class="font-weight-bolder" style="font-size:xx-large;">.</span>@item
+                            </h3>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="offset-3 col-6 text-info">
+                            <h3 class="font-weight-lighter">
+                                <span class="font-weight-bolder" style="font-size:xx-large;">.</span>@item
+                            </h3>
+                        </div>
+                    }
+                }
+            }
+            else
+            {
+                <div class="col-6 text-info">
+                    <h3 class="font-weight-lighter">@skills[0]</h3>
+                </div>
+            }
+        }
+    </div>
+</div>
+<div class="form-group row justify-content-center" style="padding:30px;">
+    <a asp-page="/index" class="btn btn-primary btn-sm col-3 mr-1">Back</a>
+    <a asp-page="Edit" asp-route-id="@Model.Model.Person.Id" class="btn btn-success btn-sm col-3 mr-1">Edit</a>
+</div>

@@ -1,0 +1,63 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<br />
+<div class="container row p-0 m-0">
+    <div class="col-9">
+        <h2 class="text-info">CV List</h2>
+    </div>
+    <div class="col-3">
+        <a asp-page="/CVList/Create" class="btn btn-info form-control text-white">Create New CV</a>
+    </div>
+
+    <div class="col-12 border p-3 mt-3">
+        <form method="post">
+            @if (Model.Persons.Any())
+            {
+                <table class="table table-striped text-center border">
+                    <tr class="table-secondary">
+                        <th>
+                            <label asp-for="Persons.FirstOrDefault().FirstName"></label>
+                        </th>
+                        <th>
+                            <label asp-for="Persons.FirstOrDefault().LastName"></label>
+                        </th>
+                        <th>
+                            <label asp-for="Persons.FirstOrDefault().Gender"></label>
+                        </th>
+                        <th></th>
+                    </tr>
+                    @foreach (var item in Model.Persons)
+                    {
+                        <tr class="text-info">
+                            <td>
+                                @item.FirstName
+                            </td>
+                            <td>
+                                @Html.DisplayFor(m => item.LastName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(m => item.Gender)
+                            </td>
+                            <td>
+                                <a asp-page="/CVList/Details" asp-route-id="@item.Id" class="btn btn-primary btn-sm text-white col-2">View</a>
+                                <a asp-page="/CVList/Edit" asp-route-id="@item.Id" class="btn btn-success btn-sm text-white col-2">Edit</a>
+                                <button asp-page-handler="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm col-2"
+                                        onclick="return confirm('Are you sure you want to delete This CV?')">
+                                    Delete
+                                </button>
+                            </td>
+                        </tr>
+                    }
+                </table>
+            }
+            else
+            {
+                <p class="text-info text-center">No Curriculum Vitae available yet.</p>
+            }
+        </form>
+    </div>
+</div>
